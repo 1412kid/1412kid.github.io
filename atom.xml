@@ -4,7 +4,7 @@
   <title><![CDATA[Kid's blog]]></title>
   <link href="www.1412.name/atom.xml" rel="self"/>
   <link href="www.1412.name/"/>
-  <updated>2016-07-28T09:19:22+08:00</updated>
+  <updated>2016-07-28T15:37:52+08:00</updated>
   <id>www.1412.name/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -13,40 +13,33 @@
   <generator uri="http://www.mweb.im/">MWeb</generator>
   
   <entry>
-    <title type="html"><![CDATA[]]></title>
+    <title type="html"><![CDATA[linux账号与用户组相关文件详解]]></title>
     <link href="www.1412.name/14694259379580.html"/>
     <updated>2016-07-25T13:52:17+08:00</updated>
     <id>www.1412.name/14694259379580.html</id>
     <content type="html"><![CDATA[
-<h1 id="toc_0">linux账号与用户组相关文件详解</h1>
-
 <ul>
 <li>
-<a href="#toc_0">linux账号与用户组相关文件详解</a>
-<ul>
-<li>
-<a href="#toc_1">相关文件</a>
+<a href="#toc_0">相关文件</a>
 </li>
 <li>
-<a href="#toc_2">/etc/passwd字段详解</a>
+<a href="#toc_1">/etc/passwd字段详解</a>
 </li>
 <li>
-<a href="#toc_3">/etc/shadow （mac无此文件）文件字段详解</a>
+<a href="#toc_2">/etc/shadow （mac无此文件）文件字段详解</a>
 </li>
 <li>
-<a href="#toc_4">/etc/group 文件字段详解</a>
+<a href="#toc_3">/etc/group 文件字段详解</a>
 </li>
 <li>
-<a href="#toc_5">/etc/gshadow （mac无此文件）  文件字段详解</a>
-</li>
-</ul>
+<a href="#toc_4">/etc/gshadow （mac无此文件）  文件字段详解</a>
 </li>
 </ul>
 
 
 <p><strong>很多程序的运行都与权限有关，而权限与UID和GID有关，理解下面的这些文件对于账号的管理是必须的</strong></p>
 
-<h2 id="toc_1">相关文件</h2>
+<h2 id="toc_0">相关文件</h2>
 
 <pre><code>1. /etc/passwd      此文件包含了该系统下的所有账号信息
 2. /etc/group       此文件包含了该系统的所有组名
@@ -56,7 +49,7 @@
 
 <span id="more"></span><!-- more -->
 
-<h2 id="toc_2">/etc/passwd字段详解</h2>
+<h2 id="toc_1">/etc/passwd字段详解</h2>
 
 <p><strong>此文件每一行代表一个账号信息，有几行就代表有几个账号在你的系统中！</strong></p>
 
@@ -103,7 +96,7 @@ kid:x:500:500:crxy:/home/crxy:/bin/bash
 
 <p><strong>字段7：</strong>Shell，该用户默认使用的shell，有个shell可以用来替代成让账号无法取得shell环境的登录操作，/sbin/nologin.    </p>
 
-<h2 id="toc_3">/etc/shadow （mac无此文件）文件字段详解</h2>
+<h2 id="toc_2">/etc/shadow （mac无此文件）文件字段详解</h2>
 
 <p><strong>注意：root账户拥有此文件的rw权限，普通用户只有r权限，最好不要修改此文件的权限</strong></p>
 
@@ -133,7 +126,7 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 
 <p><strong>如果用户在给定的期限内改动了密码，则对应的各个字段会相应的变动。</strong></p>
 
-<h2 id="toc_4">/etc/group 文件字段详解</h2>
+<h2 id="toc_3">/etc/group 文件字段详解</h2>
 
 <p><strong>以“:”分割共4个字段</strong></p>
 
@@ -153,7 +146,7 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 <code>groups</code> 列出当前账户所在的用户组，第一个用户组即为有效用户组<br/>
 <code>newgrp   users</code>切换当前用户的有效用户组为users。 此命令会另外一个shell 来提供这个功能。 如果退回到原来的环境，可用exit</p>
 
-<h2 id="toc_5">/etc/gshadow （mac无此文件）  文件字段详解</h2>
+<h2 id="toc_4">/etc/gshadow （mac无此文件）  文件字段详解</h2>
 
 <p><strong>以“:”分割共4个字段</strong></p>
 
@@ -166,6 +159,80 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 <p><strong>字段4：</strong>该用户组有哪些账号账号成员与/etc/group 内容相同</p>
 
 <p><strong>用户组管理员功能很少用到</strong></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[用户身份切换（su与sudo）]]></title>
+    <link href="www.1412.name/14696853158049.html"/>
+    <updated>2016-07-28T13:55:15+08:00</updated>
+    <id>www.1412.name/14696853158049.html</id>
+    <content type="html"><![CDATA[
+<ul>
+<li>
+<a href="#toc_0">su命令</a>
+</li>
+<li>
+<a href="#toc_1">sudo命令</a>
+<ul>
+<li>
+<a href="#toc_2">给用户组设置sudo</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">su命令</h2>
+
+<p><code>su</code> 单纯的使用su命令，读取的变量设置方式为non-login shell的方式，这种方式下很多原本的变量不会被改变。如PATH  USER 等。</p>
+
+<p><code>su -</code>  在大多数情况下应用此命令来切换成root，这种方式将用login-shell 的方式。退出root时用<code>exit</code>  .</p>
+
+<p><code>su - -c &quot;more  /etc/shadow&quot;</code>  当想要用root权限执行完一条命令后立马切回到当前用户时使用此命令，-c 后面直接接命令。</p>
+
+<p><code>su -l   用户名</code>  或<code>su -  用户名</code>  使用此命令可随意切换成其他账号，前提是必须用于这些账号的密码，切换后的账号完全拥有该账号的各种环境变量。</p>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_1">sudo命令</h2>
+
+<p><strong>su使用的是指定账号的密码换言之就是想变成谁就用谁的密码，而sudo是使用自己的密码</strong></p>
+
+<p>某用户要想使用sudo命令的前提是,必须由root账户给你相应的权限，也就是修改这个文件/etc/sudoers<br/>
+因为/etc/sudoers是有语法的，所以需要用命令<code>visudo</code>来进行编辑</p>
+
+<pre><code>root  ALL=(ALL)  ALL    #默认
+kid   ALL=(ALL)  ALL    #将kid用户设置为可执行sudo命令
+</code></pre>
+
+<p><strong>第一列：</strong>用户账户，系统指定哪些账号可以使用sudo命令，默认为root账号</p>
+
+<p><strong>第二列：</strong>登录者的来源主机名和可切换的身份，ALL表示所有主机，（ALL）可切换成任意身份</p>
+
+<p><strong>第三列：</strong>可执行的命令：ALL 表示可执行任何命令</p>
+
+<p><strong>示例</strong></p>
+
+<pre><code>#表示myuser1在任何客户端主机都可执行，但只能切换成roo身份， 可使用passwd命令+任意用户名，
+#但不可以给root修改密码。这是个很典型的应用示例
+myuser1 ALL=(root)  !/usr/bin/passwd,/usr/bin/passwd [A-Za-z]*,!/usr/bin/passwd root
+
+</code></pre>
+
+<h3 id="toc_2">给用户组设置sudo</h3>
+
+<pre><code>#表示wheel内的任何成员都可以在任意主机变换任意身份执行任何命令
+#用户组可随意设置。
+%wheel  ALL=(ALL)   ALL 
+</code></pre>
+
+<pre><code>#表示wheel内的任何成员都可以在任意主机变换任意身份执行任何命令，执行命令时连自己的密码都可以不用输入
+%wheel  ALL=(ALL)   NOPASSWD:ALL  
+</code></pre>
+
+<p><strong>sudo的默认时间间隔为5分钟，也就是在一次输入密码后的5分钟之内再执行sudo命令时不需要使用密码</strong></p>
 
 ]]></content>
   </entry>

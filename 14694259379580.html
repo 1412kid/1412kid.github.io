@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-   - Kid's blog
+  linux账号与用户组相关文件详解 - Kid's blog
   
   </title>
   <meta name="keywords" content="linux账号与用户组文件" />
@@ -111,7 +111,7 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1></h1>
+          <h1>linux账号与用户组相关文件详解</h1>
      
         <div class="read-more clearfix">
           <span class="date">2014/8/25</span>
@@ -135,35 +135,28 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <h1 id="toc_0">linux账号与用户组相关文件详解</h1>
-
-<ul>
+      <ul>
 <li>
-<a href="#toc_0">linux账号与用户组相关文件详解</a>
-<ul>
-<li>
-<a href="#toc_1">相关文件</a>
+<a href="#toc_0">相关文件</a>
 </li>
 <li>
-<a href="#toc_2">/etc/passwd字段详解</a>
+<a href="#toc_1">/etc/passwd字段详解</a>
 </li>
 <li>
-<a href="#toc_3">/etc/shadow （mac无此文件）文件字段详解</a>
+<a href="#toc_2">/etc/shadow （mac无此文件）文件字段详解</a>
 </li>
 <li>
-<a href="#toc_4">/etc/group 文件字段详解</a>
+<a href="#toc_3">/etc/group 文件字段详解</a>
 </li>
 <li>
-<a href="#toc_5">/etc/gshadow （mac无此文件）  文件字段详解</a>
-</li>
-</ul>
+<a href="#toc_4">/etc/gshadow （mac无此文件）  文件字段详解</a>
 </li>
 </ul>
 
 
 <p><strong>很多程序的运行都与权限有关，而权限与UID和GID有关，理解下面的这些文件对于账号的管理是必须的</strong></p>
 
-<h2 id="toc_1">相关文件</h2>
+<h2 id="toc_0">相关文件</h2>
 
 <pre><code>1. /etc/passwd      此文件包含了该系统下的所有账号信息
 2. /etc/group       此文件包含了该系统的所有组名
@@ -173,7 +166,7 @@
 
 <span id="more"></span><!-- more -->
 
-<h2 id="toc_2">/etc/passwd字段详解</h2>
+<h2 id="toc_1">/etc/passwd字段详解</h2>
 
 <p><strong>此文件每一行代表一个账号信息，有几行就代表有几个账号在你的系统中！</strong></p>
 
@@ -220,7 +213,7 @@ kid:x:500:500:crxy:/home/crxy:/bin/bash
 
 <p><strong>字段7：</strong>Shell，该用户默认使用的shell，有个shell可以用来替代成让账号无法取得shell环境的登录操作，/sbin/nologin.    </p>
 
-<h2 id="toc_3">/etc/shadow （mac无此文件）文件字段详解</h2>
+<h2 id="toc_2">/etc/shadow （mac无此文件）文件字段详解</h2>
 
 <p><strong>注意：root账户拥有此文件的rw权限，普通用户只有r权限，最好不要修改此文件的权限</strong></p>
 
@@ -250,7 +243,7 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 
 <p><strong>如果用户在给定的期限内改动了密码，则对应的各个字段会相应的变动。</strong></p>
 
-<h2 id="toc_4">/etc/group 文件字段详解</h2>
+<h2 id="toc_3">/etc/group 文件字段详解</h2>
 
 <p><strong>以“:”分割共4个字段</strong></p>
 
@@ -270,7 +263,7 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 <code>groups</code> 列出当前账户所在的用户组，第一个用户组即为有效用户组<br/>
 <code>newgrp   users</code>切换当前用户的有效用户组为users。 此命令会另外一个shell 来提供这个功能。 如果退回到原来的环境，可用exit</p>
 
-<h2 id="toc_5">/etc/gshadow （mac无此文件）  文件字段详解</h2>
+<h2 id="toc_4">/etc/gshadow （mac无此文件）  文件字段详解</h2>
 
 <p><strong>以“:”分割共4个字段</strong></p>
 
@@ -298,6 +291,9 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
+          <a  href="14696853158049.html" 
+          title="Next Post: 用户身份切换（su与sudo）">用户身份切换（su与sudo） &raquo;</a>
+      
       </p>
         </div>
       </div>
@@ -308,7 +304,7 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
           
 
           
-              <div class="ds-thread" data-thread-key="14694259379580.html" data-url="www.1412.name/14694259379580.html" data-title=""></div>
+              <div class="ds-thread" data-thread-key="14694259379580.html" data-url="www.1412.name/14694259379580.html" data-title="linux账号与用户组相关文件详解"></div>
           
         </div>
       </div>
@@ -373,7 +369,13 @@ kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
 	      
 		      
 			      <li class="post">
-			        <a href="14694259379580.html"></a>
+			        <a href="14694259379580.html">linux账号与用户组相关文件详解</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14696853158049.html">用户身份切换（su与sudo）</a>
 			      </li>
 		     
 		   
