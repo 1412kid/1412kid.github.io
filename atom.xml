@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Kid's blog]]></title>
+  <link href="www.1412.name/atom.xml" rel="self"/>
+  <link href="www.1412.name/"/>
+  <updated>2016-07-28T09:19:22+08:00</updated>
+  <id>www.1412.name/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[]]></title>
+    <link href="www.1412.name/14694259379580.html"/>
+    <updated>2016-07-25T13:52:17+08:00</updated>
+    <id>www.1412.name/14694259379580.html</id>
+    <content type="html"><![CDATA[
+<h1 id="toc_0">linux账号与用户组相关文件详解</h1>
+
+<ul>
+<li>
+<a href="#toc_0">linux账号与用户组相关文件详解</a>
+<ul>
+<li>
+<a href="#toc_1">相关文件</a>
+</li>
+<li>
+<a href="#toc_2">/etc/passwd字段详解</a>
+</li>
+<li>
+<a href="#toc_3">/etc/shadow （mac无此文件）文件字段详解</a>
+</li>
+<li>
+<a href="#toc_4">/etc/group 文件字段详解</a>
+</li>
+<li>
+<a href="#toc_5">/etc/gshadow （mac无此文件）  文件字段详解</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p><strong>很多程序的运行都与权限有关，而权限与UID和GID有关，理解下面的这些文件对于账号的管理是必须的</strong></p>
+
+<h2 id="toc_1">相关文件</h2>
+
+<pre><code>1. /etc/passwd      此文件包含了该系统下的所有账号信息
+2. /etc/group       此文件包含了该系统的所有组名
+3. /etc/shadow      此文件包含了该系统所有账号的密码
+4. /etc/gshadow     涉及到用户组管理员的功能，很少用到
+</code></pre>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_2">/etc/passwd字段详解</h2>
+
+<p><strong>此文件每一行代表一个账号信息，有几行就代表有几个账号在你的系统中！</strong></p>
+
+<pre><code>root:x:0:0:root:/root:/bin/zsh
+kid:x:500:500:crxy:/home/crxy:/bin/bash
+</code></pre>
+
+<p><strong>每个字段用“:”隔开，共有7个字段。</strong><br/>
+<strong>字段1：</strong>账号的名称</p>
+
+<p><strong>字段2：</strong>密码位置，在Unix的历史中，密码曾经放在此位置，因为不安全所以统一移至/etc/shadow中了，现在都用X来代替</p>
+
+<p><strong>字段3：</strong>UID</p>
+
+<table>
+<thead>
+<tr>
+<th>id范围</th>
+<th>该id用户特性</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0</td>
+<td>0就是系统管理员,如果想让其他账号名称也具有root权限时， 将该账号的UID改为0就可以<br>系统级管理员可以有多个，但不建议由多个账号的UID是0</td>
+</tr>
+<tr>
+<td>1~499</td>
+<td>给系统使用的<br>1~99，由distributions自行创建的系统账号<br>100~499 ,若用户有系统账号需求时，可以使用的账号ID</td>
+</tr>
+<tr>
+<td>500~</td>
+<td>给一般账户使用的</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>字段4：</strong>GID,同过此id可在/etc/group中找到对应组名</p>
+
+<p><strong>字段5：</strong>用户信息说明，与finger 功能有关，用户信息可以通过chfn命令来更改</p>
+
+<p><strong>字段6：</strong>主文件夹，修改之后，下次用户登录就会去修改的地方做为该用户的主文件夹</p>
+
+<p><strong>字段7：</strong>Shell，该用户默认使用的shell，有个shell可以用来替代成让账号无法取得shell环境的登录操作，/sbin/nologin.    </p>
+
+<h2 id="toc_3">/etc/shadow （mac无此文件）文件字段详解</h2>
+
+<p><strong>注意：root账户拥有此文件的rw权限，普通用户只有r权限，最好不要修改此文件的权限</strong></p>
+
+<pre><code>root:$1$kesiPNZJ$GrvjUklAs3CgKlDDtSC351:16677:0:99999:7:::
+kid:$1$b2kVrloR$utJ1aobrkf7aWHLHsYer4/:16208:0:99999:7:::
+</code></pre>
+
+<p><strong>以“:”分割共9个字段</strong></p>
+
+<p><strong>字段1：</strong>账号名称</p>
+
+<p><strong>字段2：</strong>密码（经过加密的）</p>
+
+<p><strong>字段3：</strong>最近改变密码的日期（以1970年1月1日作为1而进行累加的天数。如果你改密码的日期是1971年1月1日，则此出就显示366，也就刚好是1年）</p>
+
+<p><strong>字段4：</strong>密码不可被改动的天数，就是修改日期后要多久才能再次修改，如果是0，则可随意修改</p>
+
+<p><strong>字段5：</strong>密码隔多少天必须修改的天数，如50，就是50天后必须修改，如果是99999，则意味着没有强制修改性</p>
+
+<p><strong>字段6：</strong>密码需要更改前的警告天数。如5，则会在密码快过期的前5天会发出警告让您修改密码</p>
+
+<p><strong>字段7：</strong>密码过期后账号宽限天数，前面3至6字段都是设置密码过期相关，密码过期不等于密码失效，当密码过期后，还可以再登陆到bash，只是linux会强制让你修改密码，然而密码失效则再也登录不上linux了。此处如果为3，则密码过期后可以宽限你3天。</p>
+
+<p><strong>字段8：</strong>账号失效日期，（以1970年1月1日作为1而进行累加的天数）假设你的linux的系统时间为1970年5月1日，想要在1971年的1月1日让密码失效，则此处为365-122+1=244天。此处填244就可达到目的。</p>
+
+<p><strong>字段9：</strong>保留字段。</p>
+
+<p><strong>如果用户在给定的期限内改动了密码，则对应的各个字段会相应的变动。</strong></p>
+
+<h2 id="toc_4">/etc/group 文件字段详解</h2>
+
+<p><strong>以“:”分割共4个字段</strong></p>
+
+<p><strong>字段1：</strong>用户组名称</p>
+
+<p><strong>字段2：</strong>用户组密码，通常是给用户组管理员用的。很少用，通常不需要设置</p>
+
+<p><strong>字段3：</strong>GID 用户组的ID</p>
+
+<p><strong>字段4：</strong>此用户组所支持的用户名称，添加某成员到指定用户组，直接修改在此字段上加入就可以</p>
+
+<p><strong>初始用户组：</strong>在/etc/passwd中的GID就为该用户的初始用户组，用户在登录后就会主动取得。</p>
+
+<p><strong>有效用户组：</strong>一个用户在加入了多个用户组后，即可对这些组所规定的权限进行操作，但是这些都是对已经存在的文件而言的，如果此用户要新建一个文件，那么此文件到底所属哪个用户组呢，那就看建立这个文件时，此用户的有效用户组是谁。有效用户组可在此用户所支持的组中进行切换。</p>
+
+<p>命令：<br/>
+<code>groups</code> 列出当前账户所在的用户组，第一个用户组即为有效用户组<br/>
+<code>newgrp   users</code>切换当前用户的有效用户组为users。 此命令会另外一个shell 来提供这个功能。 如果退回到原来的环境，可用exit</p>
+
+<h2 id="toc_5">/etc/gshadow （mac无此文件）  文件字段详解</h2>
+
+<p><strong>以“:”分割共4个字段</strong></p>
+
+<p><strong>字段1：</strong>用户组名</p>
+
+<p><strong>字段2：</strong>密码列，如果是“!” 说明该用户组没有组管理员</p>
+
+<p><strong>字段3：</strong>用户组管理员账号</p>
+
+<p><strong>字段4：</strong>该用户组有哪些账号账号成员与/etc/group 内容相同</p>
+
+<p><strong>用户组管理员功能很少用到</strong></p>
+
+]]></content>
+  </entry>
+  
+</feed>
