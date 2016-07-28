@@ -4,13 +4,109 @@
   <title><![CDATA[Kid's blog]]></title>
   <link href="www.1412.name/atom.xml" rel="self"/>
   <link href="www.1412.name/"/>
-  <updated>2016-07-28T15:37:52+08:00</updated>
+  <updated>2016-07-28T15:39:34+08:00</updated>
   <id>www.1412.name/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[shadowsocks-libev安装]]></title>
+    <link href="www.1412.name/14696960194399.html"/>
+    <updated>2016-07-28T16:53:39+08:00</updated>
+    <id>www.1412.name/14696960194399.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0"><a href="http://www.vultr.com/?ref=6938970-3B">vultr</a></h2>
+
+<p>在此之前你必须拥有一台国外的vps，在我比较了很多服务商（digitalocean，Linode等）之后，从性价比角度我选择了<a href="http://www.vultr.com/?ref=6938970-3B">vultr</a>  这家，你可以选择用信用卡方式注册或用PayPal，信用卡注册至少要10美元充值激活，PayPal需要5美元充值激活。Linode每月至少10美元太贵了，digitalocean的机器已经不如当年。vultr这家不错，我不是托，我确实测试过。而且有大量的优惠码。注册成功后就申请一台每月5美元的linux的vps吧，系统debian或CentOS都可以。基于此你必须要懂linux基础，负责会一头雾水，另外这东西没人会用windows去做。</p>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_1">参考</h2>
+
+<p><a href="https://softwaredownload.gitbooks.io/openwrt-fanqiang/content/index.html">翻墙神噐github书</a> 我是参考的本书，并简要整理了这篇笔记，需要的也可看一下</p>
+
+<p>shadowsocks-libev的网络安装方式可参考<a href="https://github.com/shadowsocks/shadowsocks-libev">官网</a>或<a href="https://softwaredownload.gitbooks.io/openwrt-fanqiang/content/index.html">翻墙神噐github书</a>的第3章   （我没有成功，请使用手动安装方式）会提示：网络安装没有找到包。</p>
+
+<p>顺便再提示一点，原shadowsocks才是风靡网络的大杀器，但是作者被请去喝茶了，之后shadowsocks的源码就在github上删除了。<br/>
+我们现在用的这个 shadowsocks-libev是个测试版，很多原shadowsocks开发的第三方工具都不支持的。如shadowsocks-manager。</p>
+
+<p><strong>以下是我的简要整理笔记：</strong></p>
+
+<h2 id="toc_2">手动安装</h2>
+
+<pre><code>#下载最新版本的shadowsocks-libev
+git clone https://github.com/madeye/shadowsocks-libev.git    
+
+cd shadowsocks-libev
+
+#本地编译
+./configure &amp;&amp; make       
+
+make install 
+    
+</code></pre>
+
+<h2 id="toc_3">编辑配置</h2>
+
+<pre><code>vi /etc/shadowsocks.json
+
+{
+&quot;server&quot;:&quot;0.0.0.0&quot;,
+&quot;server_port&quot;:1098,             #服务端的端口，可随意设定
+&quot;local_address&quot;: &quot;127.0.0.1&quot;,
+&quot;local_port&quot;:1080,
+&quot;password&quot;:&quot;123456&quot;,                 #这里可随便设定密码
+&quot;timeout&quot;:300,
+&quot;method&quot;:&quot;aes-256-cfb&quot;,
+&quot;fast_open&quot;: false
+}
+
+</code></pre>
+
+<h2 id="toc_4">启动方式</h2>
+
+<p>用如下代码启动</p>
+
+<p><code>nohup /usr/local/bin/ss-server -c /etc/shadowsocks.json -u &amp;</code></p>
+
+<h2 id="toc_5">shadowsocks的服务</h2>
+
+<p><code>ps ax | grep ss-server</code> 用此命令可查看shadowsocks的进程是否启动</p>
+
+<pre><code>2142 ?        Ss     0:08 /usr/local/bin/ss-server -c /etc/shadowsocks-libev/config1.json -a root -u -f /var/run/shadowsocks-1.pid
+</code></pre>
+
+<h2 id="toc_6">shadowsocks的客户端地址</h2>
+
+<p><a href="https://shadowsocks.org/en/download/clients.html">https://shadowsocks.org/en/download/clients.html</a>     从这个地址下载对应的客户端就可以科学上网了</p>
+
+<h2 id="toc_7">多端口配置</h2>
+
+<pre><code>#!/bin/bash
+ DAEMON=/usr/local/bin/ss-server
+# 配置文件1
+CONFFILE1=/etc/shadowsocks-libev/config1.json
+# 相应的进程PID文件
+PIDFILE1=/var/run/shadowsocks-1.pid
+# 启动ss-server
+start-stop-daemon --start --quiet --pidfile $PIDFILE1 --chuid root:root --exec $
+DAEMON -- \
+        -c &quot;$CONFFILE1&quot; -a &quot;root&quot; -u -f $PIDFILE1
+# 配置文件2
+CONFFILE2=/etc/shadowsocks-libev/config2.json
+PIDFILE2=/var/run/shadowsocks-2.pid
+start-stop-daemon --start --quiet --pidfile $PIDFILE2 --chuid root:root --exec $
+DAEMON -- \
+        -c &quot;$CONFFILE2&quot; -a &quot;root&quot; -u -f $PIDFILE2
+# 配置文件3
+
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[linux账号与用户组相关文件详解]]></title>
